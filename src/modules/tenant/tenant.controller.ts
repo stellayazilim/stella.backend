@@ -27,14 +27,14 @@ export class TenantController {
   @UseGuards(StellaGuard)
   @Get('tenants')
   createTenant1() {
-    return this.tenantService.getTenants();
+    return this.tenantService.GetTenants();
   }
 
   @UseGuards(StellaGuard)
   @Post('tenants')
   @UsePipes(new ValidationPipe({ transform: true }))
   cereateTenant(@Body() data: TenantCreateDto) {
-    return this.tenantService.createTenant(data);
+    return this.tenantService.Create(data);
   }
 
   @UseGuards(StellaGuard)
@@ -44,6 +44,6 @@ export class TenantController {
     @Param('id', new ParseObjectIdPipe()) id: import('mongoose').Types.ObjectId,
     @Body() data: TenantUpdateDto,
   ) {
-    return this.tenantService.updateTenant(data, id);
+    return this.tenantService.UpdateTenant(id, data);
   }
 }

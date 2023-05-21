@@ -23,13 +23,13 @@ export class TenantService {
       });
   }
 
-  public async getTenants() {
+  async GetTenants() {
     return await this.tenantModel.find({}).then((data) => data);
   }
 
-  public async updateTenant(
-    data: TenantUpdateDto,
+  async UpdateTenant(
     id: import('mongoose').Types.ObjectId,
+    data: TenantUpdateDto,
   ) {
     console.log(data, id);
     return;

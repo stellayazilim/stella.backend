@@ -43,8 +43,6 @@ describe('AppController', () => {
           isCompany: true,
           name: 'Yourcompany',
         });
-
-        throw new Error('hest');
       });
     });
   });
