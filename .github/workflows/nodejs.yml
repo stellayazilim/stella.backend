@@ -1,12 +1,13 @@
 name: Node CI
-on: 
+on:
   push:
     branches:
-      - *
+      - '*'
+      - '!main'
   pull_request:
     types:
-     - open
-     - reopen
+      - open
+      - reopen
 jobs:
   build:
     runs-on: ubuntu-latest
