@@ -1,9 +1,5 @@
 name: Node CI
 on:
-  commit:
-    branches:
-      - '*'
-      - '!main'
   push:
     branches:
       - '*'
