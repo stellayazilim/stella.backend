@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TenantService } from '../tenant.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Tenant } from 'src/schemas/tenant.schema';
+import { Tenant } from 'src/schemas/stella/tenant.schema';
 import { tenantStub } from '../__STUBS__/tenant.stub';
 import { TenantCreateDto } from '../dto/tenant.create.dto';
 import { MockTenantModel } from '../__MOCKS__/TenantModel';
@@ -34,7 +34,7 @@ describe('AppController', () => {
       it('should TenantModel.create() called', async () => {
         expect(
           tenantService.Create({
-            ...(tenantStub() as TenantCreateDto),
+            ...(tenantStub() as unknown as TenantCreateDto),
           }),
         ).resolves.toMatchObject({
           _id: '646a97180cb6a35a81925bdd',

@@ -5,7 +5,7 @@ export class TenantBaseDto {
   name: string;
 
   @IsString()
-  host: string;
+  hostname: string;
 
   @IsBoolean()
   isCompany: boolean;
