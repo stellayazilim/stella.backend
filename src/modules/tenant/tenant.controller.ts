@@ -8,6 +8,7 @@ import {
   UsePipes,
   Patch,
   Param,
+  Query,
 } from '@nestjs/common';
 import { TenantService } from './tenant.service';
 import { StellaGuard } from 'src/common/guards/stella.guard';
@@ -15,26 +16,27 @@ import { TenantCreateDto } from './dto/tenant.create.dto';
 import { TenantUpdateDto } from './dto/tenant.update.dto';
 import { ParseObjectIdPipe } from 'src/common/pipes/parse.objectid.pipe';
 
-@Controller()
+@Controller('tenants')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
+  @UseGuards(StellaGuard)
   @Get()
-  sayHello() {
-    return 'hello';
+  getTenants(@Query() query: { skip: number; limit: number }) {
+    return this.tenantService.Get(query);
   }
 
   @UseGuards(StellaGuard)
-  @Get('tenants')
-  createTenant1() {
-    return this.tenantService.getTenants();
-  }
-
-  @UseGuards(StellaGuard)
-  @Post('tenants')
+  @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  cereateTenant(@Body() data: TenantCreateDto) {
-    return this.tenantService.createTenant(data);
+  createTenant(@Body() data: TenantCreateDto) {
+    return this.tenantService.Create(data);
+  }
+
+  @UseGuards(StellaGuard)
+  @Get(':id')
+  getTenantById(@Param('id') id: string) {
+    return this.tenantService.GetById(id);
   }
 
   @UseGuards(StellaGuard)
@@ -44,6 +46,6 @@ export class TenantController {
     @Param('id', new ParseObjectIdPipe()) id: import('mongoose').Types.ObjectId,
     @Body() data: TenantUpdateDto,
   ) {
-    return this.tenantService.updateTenant(data, id);
+    return this.tenantService.Update(id, data);
   }
 }

@@ -26,9 +26,6 @@ export class Tenant {
 
   @Prop()
   token: string;
-
-  @Prop()
-  passord: string;
 }
 
 export const TenantSchema = SchemaFactory.createForClass(Tenant);
