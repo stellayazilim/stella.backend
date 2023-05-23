@@ -7,7 +7,10 @@ export class Role {
   name: string;
 
   @Prop()
-  perms: string[];
+  description: string;
+
+  @Prop()
+  perms: number[];
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);
