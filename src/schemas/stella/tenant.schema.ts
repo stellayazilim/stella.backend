@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
-export type ProductDocument = HydratedDocument<Tenant>;
+import { Address } from './address.schema';
 
 @Schema({ timestamps: { createdAt: true, updatedAt: true } })
 export class Tenant {
@@ -17,7 +17,8 @@ export class Tenant {
   lastName: string;
 
   @Prop()
-  phone: string[];
+  phone: string;
+
   @Prop({ unique: true })
   company: string;
 
@@ -26,8 +27,17 @@ export class Tenant {
 
   @Prop()
   token: string;
+
+  @Prop()
+  address: Address;
+
+  @Prop({ default: false })
+  isActive: boolean;
+
+  @Prop({ default: false })
+  isDeleted: boolean;
 }
 
 export const TenantSchema = SchemaFactory.createForClass(Tenant);
-
 export type TenantModel = Model<Tenant>;
+export type TenantDocument = HydratedDocument<Tenant>;

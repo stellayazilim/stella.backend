@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TenantService } from './tenant.service';
 import { TenantController } from './tenant.controller';
-import { Tenant, TenantSchema } from 'src/schemas/stella/tenant.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TenantSchemaFactory } from 'src/schemas/stella/factory/tenant.schema.factory';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Tenant.name, schema: TenantSchema }]),
-  ],
+  imports: [MongooseModule.forFeatureAsync([TenantSchemaFactory])],
   controllers: [TenantController],
   providers: [TenantService],
 })

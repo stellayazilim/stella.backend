@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from './modules/mongoose/mongoose.module';
-import { TenantModule } from './modules/tenant/tenant.module';
+import { TenantModule } from './modules/stella/tenant/tenant.module';
+import { AuthModule } from './modules/stella/auth/auth.module';
 
 @Module({
-  imports: [MongooseModule, TenantModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [MongooseModule, TenantModule, AuthModule],
 })
 export class AppModule {}
