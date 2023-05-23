@@ -7,6 +7,7 @@ import {
   tenantStub,
   tenantWithIdStub,
 } from '../__STUBS__/tenant.stub';
+import { TenantUpdateDto } from '../dto/tenant.update.dto';
 
 describe('TenantControler', () => {
   let tenantController: TenantController;
@@ -35,6 +36,12 @@ describe('TenantControler', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         GetById(id: import('mongoose').Types.ObjectId) {
           return tenantWithIdStub();
+        },
+        UpdateById(
+          _id: import('mongoose').Types.ObjectId,
+          data: TenantUpdateDto,
+        ) {
+          return { ...tenantWithIdStub(), ...data };
         },
       })
       .compile();
@@ -70,6 +77,16 @@ describe('TenantControler', () => {
       const tenant = tenantController.getTenantById(tenantIdStub());
 
       expect(tenant).toMatchObject(tenantWithIdStub());
+    });
+  });
+
+  describe('patch /tenants/:id', () => {
+    it('should update tenant by id', () => {
+      const tenant = tenantController.updateTenant(tenantIdStub(), {
+        company: 'test',
+      } as unknown as TenantUpdateDto);
+
+      expect(tenant).toMatchObject({ ...tenantWithIdStub(), company: 'test' });
     });
   });
 });
