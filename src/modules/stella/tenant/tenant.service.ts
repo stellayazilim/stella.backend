@@ -19,12 +19,9 @@ export class TenantService {
     return await this.tenantModel
       .create(data)
       .then((data) => {
-        console.log(data);
-
         return data;
       })
       .catch((e) => {
-        console.log(e);
         if (e.code == 11000) throw new ConflictException();
       });
   }

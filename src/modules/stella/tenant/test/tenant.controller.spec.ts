@@ -8,6 +8,8 @@ import {
   tenantWithIdStub,
 } from '../__STUBS__/tenant.stub';
 import { TenantUpdateDto } from '../dto/tenant.update.dto';
+import { TenantDocument } from 'src/schemas/stella/tenant.schema';
+import { BadRequestException } from '@nestjs/common';
 
 describe('TenantControler', () => {
   let tenantController: TenantController;
@@ -42,6 +44,13 @@ describe('TenantControler', () => {
           data: TenantUpdateDto,
         ) {
           return { ...tenantWithIdStub(), ...data };
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        DeleteById(_id: import('mongoose').Types.ObjectId) {
+          return {
+            ...tenantWithIdStub(),
+            isDeleted: true,
+          } as unknown as Partial<TenantDocument>;
         },
       })
       .compile();
@@ -87,6 +96,22 @@ describe('TenantControler', () => {
       } as unknown as TenantUpdateDto);
 
       expect(tenant).toMatchObject({ ...tenantWithIdStub(), company: 'test' });
+    });
+  });
+
+  describe('delete tenant', () => {
+    let tenant;
+    beforeAll(() => {
+      tenant = tenantController.deleteTenant(
+        tenantIdStub() as import('mongoose').Types.ObjectId,
+      );
+    });
+    it('should delete tenant and resolves', async () => {
+      expect(tenant).resolves.toBe(undefined);
+    });
+
+    it('should not throw an error on susscessfull delete', () => {
+      expect(tenant).resolves.not.toThrow();
     });
   });
 });
