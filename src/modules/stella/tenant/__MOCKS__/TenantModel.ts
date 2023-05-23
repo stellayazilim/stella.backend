@@ -1,20 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  tenantIdStub,
+  tenantStub,
+  tenantWithIdStub,
+} from '../__STUBS__/tenant.stub';
 import { TenantCreateDto } from '../dto/tenant.create.dto';
+import { TenantUpdateDto } from '../dto/tenant.update.dto';
 
-export class MockTenantModel {
-  constructor(public data?: TenantCreateDto & { _id: string }) {}
+export const MockTenantModel = {
+  constructor: jest.fn().mockImplementation((data: TenantCreateDto) => {
+    return jest.fn().mockReturnThis();
+  }),
 
-  save() {
-    return this.data;
-  }
+  save: jest.fn().mockReturnThis(),
 
-  async create(data?: TenantCreateDto) {
-    this.data = { ...data, _id: '646a97180cb6a35a81925bdd' };
-    return this.data;
-  }
+  find: jest.fn().mockReturnThis(),
 
-  findOne({ _id }) {
-    return this.data;
-    // test
-  }
-}
+  create: jest.fn().mockReturnThis(),
+  // mockImplementation(async (data?: TenantCreateDto) => {
+  //   return jest.fn().mockReturnValue({ _id: tenantIdStub, ...data });
+  // }),
+
+  findOne: jest.fn().mockReturnThis(),
+  // .mockImplementation(async (_id: import('mongoose').Types.ObjectId) =>
+  //   jest.fn().mockReturnThis(),
+  // ),
+
+  findByIdAndUpdate: jest.fn().mockReturnThis(),
+  // .mockImplementation(
+  //   async (_id: import('mongoose').Types.ObjectId, data: TenantUpdateDto) => {
+  //     return jest
+  //       .fn()
+  //       .mockReturnValue(Object.assign({ _id }, tenantStub(), data));
+  //   },
+  // ),
+};

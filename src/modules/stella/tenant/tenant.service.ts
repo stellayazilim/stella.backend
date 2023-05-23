@@ -26,7 +26,7 @@ export class TenantService {
       });
   }
 
-  async Get({ skip, limit }: { skip?: number; limit?: number }) {
+  async GetAll({ skip, limit }: { skip?: number; limit?: number }) {
     return await this.tenantModel
       .find()
       .populate('address')
@@ -36,14 +36,7 @@ export class TenantService {
   }
 
   async GetById(id: Types.ObjectId) {
-    return await this.tenantModel
-      .findById(id)
-      .populate('addresses')
-      .lean()
-      .then((data) => ({
-        ...data,
-        addresses: `http://localhost:3000/tenants/${data._id}/addresses`,
-      }));
+    return await this.tenantModel.findById(id).populate('addresses').lean();
   }
   async UpdateById(
     id: import('mongoose').Types.ObjectId,

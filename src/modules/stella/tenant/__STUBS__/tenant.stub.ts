@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 export const tenantStub = () => ({
   company: 'Yourcompany',
@@ -8,12 +8,12 @@ export const tenantStub = () => ({
 });
 
 export const tenantIdStub = (): import('mongoose').Types.ObjectId =>
-  new Types.ObjectId('6469a1f65dfe850a92a0b303');
+  '6469a1f65dfe850a92a0b303' as unknown as Types.ObjectId;
 
 export const tenantWithIdStub = () => {
   const _id = tenantIdStub();
   return {
     ...tenantStub(),
-    _id,
+    _id: _id,
   };
 };
