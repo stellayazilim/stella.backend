@@ -24,7 +24,7 @@ export class TenantController {
   @UseGuards(StellaGuard)
   @Get()
   getTenants(@Query() query: { skip: number; limit: number }) {
-    return this.tenantService.Get(query);
+    return this.tenantService.GetAll(query);
   }
 
   @UseGuards(StellaGuard)

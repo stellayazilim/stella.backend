@@ -22,7 +22,7 @@ describe('TenantControler', () => {
       .overrideProvider(TenantService)
       .useValue({
         Create: (data: TenantCreateDto) => data,
-        Get: (query: {
+        GetAll: (query: {
           limit: number | undefined;
           skip: number | undefined;
         }) => {
