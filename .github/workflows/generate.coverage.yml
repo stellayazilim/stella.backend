@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,22 +16,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests and generate coverage report
+      - name: Run tests with code coverage
         run: npm run test:cov
 
-      - name: Publish code coverage artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: coverage
-
   code-coverage-check:
-    needs: build-and-test
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +35,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Download code coverage artifacts
         uses: actions/download-artifact@v2
@@ -53,7 +47,7 @@ jobs:
         run: |
           # Calculate the code coverage percentage
           COVERAGE_THRESHOLD=80
-          actual_coverage=$(grep -o -P '(?<=<coverage line-rate=")[\d.]+' coverage/lcov-report/coverage-summary.json)
+          actual_coverage=$(grep -o -P '(?<=statements":{.*"p":)[\d.]+' coverage/lcov-report/index.html)
           coverage_percentage=$(awk "BEGIN {print $actual_coverage * 100}")
 
           # Print the coverage percentage
