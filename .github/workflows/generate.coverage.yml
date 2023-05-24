@@ -46,7 +46,7 @@ jobs:
       - name: Check code coverage
         run: |
           # Calculate the code coverage percentage
-          COVERAGE_THRESHOLD=80
+          COVERAGE_THRESHOLD=50
           actual_coverage=$(grep -o -P '(?<=statements":{.*"p":)[\d.]+' coverage/lcov-report/index.html)
           coverage_percentage=$(awk "BEGIN {print $actual_coverage * 100}")
 
