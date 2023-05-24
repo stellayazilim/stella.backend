@@ -89,6 +89,7 @@ describe('TenantService', () => {
         phone: '+905555555555',
       };
       const mockPopulatedTenant = {
+        _id: tenantId,
         ...mockTenant,
       };
       mockTenantModel.findById.mockReturnValue({

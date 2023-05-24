@@ -44,7 +44,7 @@ export class TenantService {
   ) {
     return await this.tenantModel
       .findOneAndUpdate(id, data, { new: true })
-      .then((data) => data)
+      .lean()
       .catch(() => {
         throw new BadRequestException();
       });

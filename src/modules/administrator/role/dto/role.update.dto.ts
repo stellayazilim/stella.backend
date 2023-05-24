@@ -1,13 +1,15 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class RoleUpdateDto {
+  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
   @IsString()
   @IsOptional()
-  description: string;
+  description?: string;
 
-  @IsString({ each: true })
-  perms: import('mongoose').Types.ObjectId[];
+  @IsOptional()
+  @IsNumber({}, { each: true })
+  perms?: number[];
 }

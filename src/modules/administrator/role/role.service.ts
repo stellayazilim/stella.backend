@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -18,7 +17,14 @@ export class RoleService {
   }
 
   async GetRoleById(id: import('mongoose').Types.ObjectId) {
-    return await this.roleModel.findById(id);
+    return await this.roleModel
+      .findById(id)
+      .lean()
+      .then((data) => {
+        if (data == null) throw new NotFoundException();
+
+        return data;
+      });
   }
   async AddRole(data: RoleAddDto) {
     return await this.roleModel.create(data).catch((e) => {
@@ -27,13 +33,15 @@ export class RoleService {
   }
 
   async UpdateRole(id: import('mongoose').Types.ObjectId, data: RoleUpdateDto) {
-    return await this.roleModel.findByIdAndRemove(id, data);
+    return await this.roleModel
+      .findByIdAndUpdate(id, data, { new: true })
+      .lean();
   }
 
   async DeleteRole(id: import('mongoose').Types.ObjectId) {
-    return await this.roleModel.findByIdAndRemove(id).then((data) => {
+    await this.roleModel.findByIdAndRemove(id).then((data) => {
       if (data == null) throw new NotFoundException();
-      return data;
+      return;
     });
   }
 }
