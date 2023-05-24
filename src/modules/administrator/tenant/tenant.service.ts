@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Tenant, TenantModel } from 'src/schemas/stella/tenant.schema';
-import { TenantCreateDto } from 'src/modules/stella/tenant/dto/tenant.create.dto';
-import { TenantUpdateDto } from 'src/modules/stella/tenant/dto/tenant.update.dto';
+import { TenantCreateDto } from 'src/modules/administrator/tenant/dto/tenant.create.dto';
+import { TenantUpdateDto } from 'src/modules/administrator/tenant/dto/tenant.update.dto';
 import { Types } from 'mongoose';
 
 @Injectable()
@@ -44,7 +44,7 @@ export class TenantService {
   ) {
     return await this.tenantModel
       .findOneAndUpdate(id, data, { new: true })
-      .then((data) => data)
+      .lean()
       .catch(() => {
         throw new BadRequestException();
       });

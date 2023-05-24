@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from './modules/mongoose/mongoose.module';
-import { TenantModule } from './modules/stella/tenant/tenant.module';
-import { AuthModule } from './modules/stella/auth/auth.module';
+import { AdministratorModule } from './modules/administrator/administrator.module';
 
 @Module({
-  imports: [MongooseModule, TenantModule, AuthModule],
+  imports: [MongooseModule, AdministratorModule],
 })
 export class AppModule {}

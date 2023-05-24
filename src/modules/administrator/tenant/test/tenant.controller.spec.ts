@@ -9,7 +9,6 @@ import {
 } from '../__STUBS__/tenant.stub';
 import { TenantUpdateDto } from '../dto/tenant.update.dto';
 import { TenantDocument } from 'src/schemas/stella/tenant.schema';
-import { BadRequestException } from '@nestjs/common';
 
 describe('TenantControler', () => {
   let tenantController: TenantController;
