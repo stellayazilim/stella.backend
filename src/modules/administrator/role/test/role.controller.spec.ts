@@ -76,6 +76,9 @@ describe('Role Controller', () => {
     roleService = app.get<RoleService>(RoleService);
   });
 
+  it('should defined', () => {
+    expect(roleController).toBeDefined();
+  });
   describe('Get All Roles', () => {
     it('should get all roles', () => {
       const result = roleController.getRoles({ limit: 10, skip: 0 });
