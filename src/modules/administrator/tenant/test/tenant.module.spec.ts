@@ -1,15 +1,15 @@
 import { Test } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
-import { TenantModule } from '../tenant.module';
-import { MongooseModule } from 'src/modules/mongoose/mongoose.module';
 import { Tenant, TenantModel } from 'src/schemas/stella/tenant.schema';
+import { TenantModule } from '../tenant.module';
 import { TenantService } from '../tenant.service';
 import { TenantController } from '../tenant.controller';
+
 describe('Role module', () => {
   let tenantModule: TenantModule;
+  let tenantController: TenantController;
   let tenantModel: TenantModel;
   let tenantService: TenantService;
-  let tenantController: TenantController;
   beforeEach(async () => {
     const app = await Test.createTestingModule({
       imports: [TenantModule],
@@ -22,11 +22,10 @@ describe('Role module', () => {
         findByIdAndRemove: jest.fn(),
       })
       .compile();
-
     tenantModule = app.get<TenantModule>(TenantModule);
-    tenantModel = app.get<TenantModel>(getModelToken(Tenant.name));
-    tenantService = app.get<TenantService>(TenantService);
     tenantController = app.get<TenantController>(TenantController);
+    tenantService = app.get<TenantService>(TenantService);
+    tenantModel = app.get<TenantModel>(getModelToken(Tenant.name));
   });
 
   it('should defined', () => {

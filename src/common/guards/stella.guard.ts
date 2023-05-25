@@ -1,14 +1,16 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Request } from 'express';
 import { Observable } from 'rxjs';
 @Injectable()
 export class StellaGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request: Request = context.switchToHttp().getRequest();
 
-    const tenant = request.query.tenant;
+    const re = /\.?localhost/;
+    const subdomains = request.hostname.replace(re, '').split('.');
 
-    return tenant == undefined;
+    return subdomains[0] != 'tenants' && subdomains[1] == undefined;
   }
 }

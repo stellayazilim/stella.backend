@@ -3,7 +3,7 @@ import { IsOptional, IsString } from 'class-validator';
 export class TenantAddressDto {
   @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
   @IsString()
   country: string;
@@ -11,9 +11,11 @@ export class TenantAddressDto {
   @IsString()
   city: string;
 
-  @IsString({ each: true })
-  province: string[];
+  @IsString()
+  province: string;
 
+  @IsString({ each: true })
+  addressLines: string[];
   @IsString()
   zipcode: string;
 }

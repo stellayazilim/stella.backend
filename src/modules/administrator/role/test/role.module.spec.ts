@@ -4,7 +4,6 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Role, RoleModel } from 'src/schemas/stella/role.schema';
 import { RoleModule } from '../role.module';
 import { RoleController } from '../role.controller';
-import { MongooseModule } from 'src/modules/mongoose/mongoose.module';
 describe('Role module', () => {
   let roleModel: RoleModel;
   let roleController: RoleController;
