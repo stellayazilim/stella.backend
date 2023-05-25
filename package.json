@@ -65,6 +65,10 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/main.ts",
+      "<rootDir>/.*/__stubs__/.*"
+    ],
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],

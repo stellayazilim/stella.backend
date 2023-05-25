@@ -6,7 +6,7 @@ import {
   tenantIdStub,
   tenantStub,
   tenantWithIdStub,
-} from '../__STUBS__/tenant.stub';
+} from '../__stubs__/tenant.stub';
 import { TenantUpdateDto } from '../dto/tenant.update.dto';
 import { TenantDocument } from 'src/schemas/stella/tenant.schema';
 

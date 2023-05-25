@@ -3,7 +3,7 @@ import {
   tenantIdStub,
   tenantStub,
   tenantWithIdStub,
-} from '../__STUBS__/tenant.stub';
+} from '../__stubs__/tenant.stub';
 import { TenantCreateDto } from '../dto/tenant.create.dto';
 
 export const MockTenantModel = {
