@@ -36,4 +36,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm run test:cov
-        run: npm run test:cov || exit 0
+        run: npm install && npm run test:cov || exit 0
