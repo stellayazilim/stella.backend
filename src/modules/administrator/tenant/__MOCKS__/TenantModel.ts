@@ -5,7 +5,6 @@ import {
   tenantWithIdStub,
 } from '../__STUBS__/tenant.stub';
 import { TenantCreateDto } from '../dto/tenant.create.dto';
-import { TenantUpdateDto } from '../dto/tenant.update.dto';
 
 export const MockTenantModel = {
   constructor: jest.fn().mockImplementation((data: TenantCreateDto) => {

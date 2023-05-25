@@ -26,13 +26,13 @@ export class TenantCreateDto {
 
   @ValidateIf((d) => !d.isCompany)
   @IsString()
-  firstName: string;
+  firstName?: string;
 
   @ValidateIf((d) => !d.isCompany)
   @IsString()
-  lastName: string;
+  lastName?: string;
 
-  @IsPhoneNumber()
+  @IsMobilePhone('tr-TR')
   phone: string;
 
   @IsEmail()

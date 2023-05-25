@@ -23,7 +23,7 @@ export class TenantController {
 
   @UseGuards(StellaGuard)
   @Get()
-  getTenants(@Query() query: { skip: number; limit: number }) {
+  async getTenants(@Query() query: { skip?: number; limit?: number }) {
     return this.tenantService.GetAll(query);
   }
 
