@@ -4,6 +4,7 @@ import { Test } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
+import { MockUserModel } from './__mocks__/user.model';
 
 describe('User(Administrator) module', () => {
   let userModule: UserModule;
@@ -15,17 +16,12 @@ describe('User(Administrator) module', () => {
       imports: [UserModule],
     })
       .overrideProvider(getModelToken(User.name))
-      .useValue({
-        find: jest.fn(),
-        findById: jest.fn(),
-        findByIdAndUpdate: jest.fn(),
-        findByIdAndRemove: jest.fn(),
-      })
+      .useValue(MockUserModel)
       .compile();
 
     userModule = app.get<UserModule>(UserModule);
     userController = app.get<UserController>(UserController);
-    userService = app.get<UserController>(UserController);
+    userService = app.get<UserService>(UserService);
     userModel = app.get<UserModel>(getModelToken(User.name));
   });
 
