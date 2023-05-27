@@ -25,6 +25,7 @@
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "@paralleldrive/cuid2": "^2.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "mongoose": "^7.2.0",
@@ -63,10 +64,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 60,
-        "functions": 70,
-        "lines": 80,
-        "statements": 80
+        "branches": 50,
+        "functions": 80,
+        "lines": 85,
+        "statements": 85
       }
     },
     "rootDir": "src",

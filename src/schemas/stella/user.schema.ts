@@ -5,7 +5,7 @@ import { Role, RoleSchema } from './role.schema';
 @Schema({ timestamps: { createdAt: true, updatedAt: true } })
 export class User {
   @Prop()
-  email: boolean;
+  email: string;
 
   @Prop()
   firstName: string;
