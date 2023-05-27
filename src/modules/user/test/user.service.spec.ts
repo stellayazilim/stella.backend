@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { UserService } from '../user.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from '../../../../schemas/user.schema';
+import { User } from '../../../schemas/user.schema';
 import { MockUserModel } from './__mocks__/user.model';
 import { UserAddDto } from '../dto/user.add.dto';
 import { Types } from 'mongoose';

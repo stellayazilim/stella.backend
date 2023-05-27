@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from './modules/mongoose/mongoose.module';
-import { AdministratorModule } from './modules/administrator/administrator.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './modules/user/user.module';
+import { TenantModule } from './modules/tenant/tenant.module';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
-  imports: [MongooseModule, AdministratorModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/stella'),
+    UserModule,
+    TenantModule,
+    RoleModule,
+  ],
 })
 export class AppModule {}
