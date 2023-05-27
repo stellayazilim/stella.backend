@@ -13,7 +13,12 @@ export class RoleService {
   constructor(@InjectModel(Role.name) private readonly roleModel: RoleModel) {}
 
   async GetAllRoles({ limit, skip }: { limit?: number; skip?: number }) {
-    return await this.roleModel.find({}).limit(limit).skip(skip).lean();
+    return await this.roleModel
+      .find({})
+      .limit(limit)
+      .skip(skip)
+      .lean()
+      .then((data) => data);
   }
 
   async GetRoleById(id: import('mongoose').Types.ObjectId) {

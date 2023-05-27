@@ -1,5 +1,3 @@
-import { UserAddDto } from '../../dto/user.add.dto';
-
 export const MockUserModel = {
   find: jest.fn(),
   findById: jest.fn(),
