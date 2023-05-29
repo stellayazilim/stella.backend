@@ -1,15 +1,22 @@
-import { Controller, Get, HostParam, Post } from '@nestjs/common';
-import { Tenant } from 'src/common/decorators/tenant.decorator';
+import {
+  Controller,
+  Get,
+  Injectable,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+
+@Injectable()
+class TestGuard extends AuthGuard('Local') {}
 
 @Controller({ path: 'auth' })
 export class AuthController {
-  @Post()
-  async signIn() {
-    return 'test';
-  }
-
   @Get('signin')
-  async _signIn(@Tenant() d: any) {
-    return d;
+  @UseGuards(TestGuard)
+  async signIn(@Req() req: Request) {
+    return req.user;
   }
 }
