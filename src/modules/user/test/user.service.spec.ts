@@ -120,7 +120,7 @@ describe('User Service', () => {
     });
     it('should throw NotFoundException() if record not found', () => {
       mockUserModel.findById.mockReturnValue({
-        lean: jest.fn().mockRejectedValue(new NotFoundException()),
+        lean: jest.fn().mockResolvedValue(null),
       });
       const result = userService.GetUserById(mockUserId);
       expect(mockUserModel.findById).toBeCalledWith(mockUserId);
@@ -162,7 +162,7 @@ describe('User Service', () => {
 
     it('should throw NotFoundException if document does not exist', () => {
       mockUserModel.findByIdAndUpdate.mockReturnValue({
-        lean: jest.fn().mockRejectedValue(new NotFoundException()),
+        lean: jest.fn().mockResolvedValue(null),
       });
       const result = userService.UpdateUser(mockUserId, mockUserUpdateDto);
       expect(mockUserModel.findByIdAndUpdate).toHaveBeenCalledWith(

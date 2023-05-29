@@ -5,4 +5,8 @@ import { Role, RoleModel } from 'src/schemas/stella/role.schema';
 @Injectable()
 export class AuthService {
   constructor(@InjectModel(Role.name) private readonly roleModel: RoleModel) {}
+
+  async ValidateUser(email: string, password: string) {
+    return {};
+  }
 }

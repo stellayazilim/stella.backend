@@ -33,7 +33,7 @@ export class UserService {
       .lean()
       .then((data) => {
         if (data == null) throw new NotFoundException();
-        return data;
+        else return data;
       });
   }
 
@@ -43,8 +43,7 @@ export class UserService {
       .lean()
       .then((data) => {
         if (data == null) throw new NotFoundException();
-
-        return data;
+        else return data;
       });
   }
 

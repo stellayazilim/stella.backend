@@ -9,6 +9,7 @@ import {
 } from '../__stubs__/tenant.stub';
 import { TenantUpdateDto } from '../dto/tenant.update.dto';
 import { TenantDocument } from 'src/schemas/stella/tenant.schema';
+import { Types } from 'mongoose';
 
 describe('TenantControler', () => {
   let tenantController: TenantController;
@@ -16,7 +17,8 @@ describe('TenantControler', () => {
   let tenantService: TenantService;
 
   const mockTenantService = {
-    Create: (data: TenantCreateDto) => data,
+    Create: async (data: TenantCreateDto) =>
+      Object.assign({}, data, { _id: new Types.ObjectId() }),
     GetAll: (query: {
       limit?: number | undefined;
       skip?: number | undefined;
@@ -61,6 +63,30 @@ describe('TenantControler', () => {
   });
   it('should defined', () => {
     expect(tenantController).toBeDefined();
+  });
+
+  describe('Create Tenant', () => {
+    it('should create tenant', () => {
+      const tenantDto: TenantCreateDto = {
+        hostname: 'elitas',
+        name: 'elitas makina',
+        isCompany: true,
+        phone: '+905438559800',
+        email: 'admin@elitasmakina.com',
+        address: {
+          name: 'isyeri',
+          country: 'Turkiye',
+          city: 'Istanbul',
+          province: 'Besiktas',
+          zipcode: '29451',
+          addressLines: ['Besiktas'],
+        },
+      };
+      const tenant = tenantController.createTenant(tenantDto);
+
+      expect(tenant).resolves.toMatchObject(expect.objectContaining(tenantDto));
+      expect(tenant).resolves.toHaveProperty('_id');
+    });
   });
 
   describe('get /tenants', () => {

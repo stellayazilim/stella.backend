@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { TenantAddressDto } from '../dto/tenant.address.dto';
+import { TenantAddressDto } from '../tenant.address.dto';
 import { ValidationError, validate } from 'class-validator';
 
 describe('tenant adress.dto', () => {

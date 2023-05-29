@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Tenant, TenantModel } from 'src/schemas/stella/tenant.schema';
@@ -43,18 +44,21 @@ export class TenantService {
     data: TenantUpdateDto,
   ) {
     return await this.tenantModel
-      .findOneAndUpdate(id, data, { new: true })
+      .findByIdAndUpdate(id, data, { new: true })
       .lean()
-      .catch(() => {
-        throw new BadRequestException();
+      .then((data) => {
+        if (data == null) throw new NotFoundException();
+        return data;
       });
   }
 
   async DeleteById(id: import('mongoose').Types.ObjectId) {
     return this.tenantModel
       .findByIdAndUpdate(id, { isDeleted: true })
-      .catch(() => {
-        throw new BadRequestException();
+      .lean()
+      .then((data) => {
+        if (data == null) throw new NotFoundException();
+        return data;
       });
   }
 }

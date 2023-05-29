@@ -1,7 +1,8 @@
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { TenantService } from '../tenant.service';
 import { TenantCreateDto } from '../dto/tenant.create.dto';
+import { TenantUpdateDto } from '../dto/tenant.update.dto';
 
 describe('TenantService', () => {
   let tenantService: TenantService;
@@ -12,7 +13,6 @@ describe('TenantService', () => {
       create: jest.fn(),
       find: jest.fn(),
       findById: jest.fn(),
-      findOneAndUpdate: jest.fn(),
       findByIdAndUpdate: jest.fn(),
     };
     tenantService = new TenantService(mockTenantModel);
@@ -101,6 +101,143 @@ describe('TenantService', () => {
 
       expect(mockTenantModel.findById).toHaveBeenCalledWith(tenantId);
       expect(result).toEqual(mockPopulatedTenant);
+    });
+  });
+
+  describe('Update Tenant', () => {
+    const mockTenantId: import('mongoose').Types.ObjectId =
+      new Types.ObjectId();
+
+    const mockTenant = {
+      name: 'stella',
+      company: 'stella',
+      isCompany: true,
+      phone: '+905438559800',
+      email: 'administrator@stellasoft.tech',
+      hostname: 'stellasoft.tech',
+      address: {
+        country: 'Turkiye',
+        city: 'Tekirdag',
+        province: 'Corlu',
+        addressLines: ['Ali pasa mah'],
+        zipcode: '49580',
+      },
+    };
+    const mockTenantUpdateDto: TenantUpdateDto = {
+      name: 'Test',
+    };
+    it('should update tenant', () => {
+      mockTenantModel.findByIdAndUpdate.mockReturnValue({
+        lean: jest
+          .fn()
+          .mockResolvedValue(
+            Object.assign(
+              {},
+              { _id: mockTenantId },
+              mockTenant,
+              mockTenantUpdateDto,
+            ),
+          ),
+      });
+
+      const result = tenantService.UpdateById(
+        mockTenantId,
+        mockTenantUpdateDto,
+      );
+      expect(mockTenantModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockTenantId,
+        mockTenantUpdateDto,
+        { new: true },
+      );
+      expect(result).resolves.toMatchObject(
+        Object.assign(
+          {},
+          { _id: mockTenantId },
+          mockTenant,
+          mockTenantUpdateDto,
+        ),
+      );
+    });
+
+    it('should throw NotFoundException if tenant not found', () => {
+      mockTenantModel.findByIdAndUpdate.mockReturnValue({
+        lean: jest.fn().mockResolvedValue(null),
+      });
+      const result = tenantService.UpdateById(
+        mockTenantId,
+        mockTenantUpdateDto,
+      );
+      expect(mockTenantModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockTenantId,
+        mockTenantUpdateDto,
+        { new: true },
+      );
+
+      expect(result).rejects.toThrowError(new NotFoundException());
+    });
+  });
+
+  describe('delete tenant', () => {
+    const mockTenantId: import('mongoose').Types.ObjectId =
+      new Types.ObjectId();
+
+    const mockTenant = {
+      name: 'stella',
+      company: 'stella',
+      isCompany: true,
+      phone: '+905438559800',
+      email: 'administrator@stellasoft.tech',
+      hostname: 'stellasoft.tech',
+      address: {
+        country: 'Turkiye',
+        city: 'Tekirdag',
+        province: 'Corlu',
+        addressLines: ['Ali pasa mah'],
+        zipcode: '49580',
+      },
+    };
+    const mockTenantUpdateDto: TenantUpdateDto = {
+      name: 'Test',
+    };
+
+    it('should delete tenant', () => {
+      mockTenantModel.findByIdAndUpdate.mockReturnValue({
+        lean: jest
+          .fn()
+          .mockResolvedValue(
+            Object.assign(
+              {},
+              { _id: mockTenantId, isDeleted: true },
+              mockTenant,
+              mockTenantUpdateDto,
+            ),
+          ),
+      });
+
+      const result = tenantService.DeleteById(mockTenantId);
+
+      expect(mockTenantModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockTenantId,
+        { isDeleted: true },
+      );
+
+      expect(result).resolves.toMatchObject(
+        expect.objectContaining({ isDeleted: true }),
+      );
+    });
+
+    it('should throw NotFoundException', () => {
+      mockTenantModel.findByIdAndUpdate.mockReturnValue({
+        lean: jest.fn().mockResolvedValue(null),
+      });
+
+      const result = tenantService.DeleteById(mockTenantId);
+
+      expect(mockTenantModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockTenantId,
+        { isDeleted: true },
+      );
+      expect(result).rejects.toThrowError(new NotFoundException());
     });
   });
 });

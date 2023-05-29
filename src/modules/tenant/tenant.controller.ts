@@ -12,7 +12,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TenantService } from './tenant.service';
-import { StellaGuard } from 'src/common/guards/stella.guard';
+
 import { TenantCreateDto } from './dto/tenant.create.dto';
 import { TenantUpdateDto } from './dto/tenant.update.dto';
 import { ParseObjectIdPipe } from 'src/common/pipes/parse.objectid.pipe';
@@ -21,20 +21,17 @@ import { ParseObjectIdPipe } from 'src/common/pipes/parse.objectid.pipe';
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
-  @UseGuards(StellaGuard)
   @Get()
   async getTenants(@Query() query: { skip?: number; limit?: number }) {
     return this.tenantService.GetAll(query);
   }
 
-  @UseGuards(StellaGuard)
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   createTenant(@Body() data: TenantCreateDto) {
     return this.tenantService.Create(data);
   }
 
-  @UseGuards(StellaGuard)
   @Get(':id')
   getTenantById(
     @Param('id', new ParseObjectIdPipe()) id: import('mongoose').Types.ObjectId,
@@ -42,7 +39,6 @@ export class TenantController {
     return this.tenantService.GetById(id);
   }
 
-  @UseGuards(StellaGuard)
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   @Patch(':id')
   updateTenant(
@@ -52,7 +48,6 @@ export class TenantController {
     return this.tenantService.UpdateById(id, data);
   }
 
-  @UseGuards(StellaGuard)
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   @Delete(':id')
   async deleteTenant(
