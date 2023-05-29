@@ -79,6 +79,34 @@ describe('Role Controller', () => {
   it('should defined', () => {
     expect(roleController).toBeDefined();
   });
+
+  describe('Add Role', () => {
+    const mockRoleId = new Types.ObjectId();
+    const mockDto = {
+      name: 'administrator',
+      description: 'root admin role',
+      perms: [2, 5, 4],
+    };
+    it('should add role', () => {
+      mockRoleService.AddRole.mockResolvedValue(
+        Object.assign({}, mockDto, { _id: mockRoleId }),
+      );
+
+      const result = roleController.addRole(mockDto);
+
+      expect(mockRoleService.AddRole).toHaveBeenCalledWith(mockDto);
+      expect(result).resolves.toMatchObject(
+        Object.assign({}, mockDto, { _id: mockRoleId }),
+      );
+    });
+
+    it('should throw ConflictException on duplicate keys', () => {
+      mockRoleService.AddRole.mockRejectedValue(new ConflictException());
+      const result = roleController.addRole(mockDto);
+      expect(mockRoleService.AddRole).toHaveBeenCalledWith(mockDto);
+      expect(result).rejects.toThrowError(new ConflictException());
+    });
+  });
   describe('Get All Roles', () => {
     it('should get all roles', () => {
       const result = roleController.getRoles({ limit: 10, skip: 0 });

@@ -40,7 +40,11 @@ export class RoleService {
   async UpdateRole(id: import('mongoose').Types.ObjectId, data: RoleUpdateDto) {
     return await this.roleModel
       .findByIdAndUpdate(id, data, { new: true })
-      .lean();
+      .lean()
+      .then((data) => {
+        if (data == null) throw new NotFoundException();
+        return data;
+      });
   }
 
   async DeleteRole(id: import('mongoose').Types.ObjectId) {

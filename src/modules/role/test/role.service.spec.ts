@@ -112,7 +112,7 @@ describe('Role service', () => {
 
     it('should throw NotFoundExeption if role does not exist on db', () => {
       mockRoleModel.findById.mockReturnValue({
-        lean: jest.fn().mockRejectedValue(new NotFoundException()),
+        lean: jest.fn().mockResolvedValue(null),
       });
       const result = roleService.GetRoleById(new Types.ObjectId());
 
@@ -181,6 +181,19 @@ describe('Role service', () => {
       );
       expect(result).resolves.toMatchObject(mockPopulatedRole);
     });
+
+    it('should throw NotFoundException if role does not exist', () => {
+      mockRoleModel.findByIdAndUpdate.mockReturnValue({
+        lean: jest.fn().mockResolvedValue(null),
+      });
+      const result = roleService.UpdateRole(mockRoleId, mockUpdateDto);
+      expect(mockRoleModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockRoleId,
+        mockUpdateDto,
+        { new: true },
+      );
+      expect(result).rejects.toThrowError(new NotFoundException());
+    });
   });
 
   describe('RemoveRole', () => {
@@ -192,16 +205,17 @@ describe('Role service', () => {
     };
     it('should remove role', () => {
       mockRoleModel.findByIdAndRemove.mockResolvedValue(mockPopulatedRole);
-      mockRoleModel.findByIdAndRemove.mockRejectedValue(
-        new NotFoundException(),
-      );
+
       const result = roleService.DeleteRole(mockRoleId);
       expect(mockRoleModel.findByIdAndRemove).toBeCalledWith(mockRoleId);
-      expect(result).rejects.toThrow(new NotFoundException());
+      expect(result).resolves.toBe(undefined);
     });
 
     it('should throw NotFound exeption if role does not exist', () => {
-      return;
+      mockRoleModel.findByIdAndRemove.mockResolvedValue(null);
+
+      const result = roleService.DeleteRole(mockRoleId);
+      expect(result).rejects.toThrow(new NotFoundException());
     });
   });
 });
