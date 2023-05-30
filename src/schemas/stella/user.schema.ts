@@ -19,7 +19,7 @@ export class User {
   @Prop({ type: RoleSchema, ref: 'Role' })
   role: Role;
 
-  @Prop()
+  @Prop({ select: false })
   password: string;
 }
 

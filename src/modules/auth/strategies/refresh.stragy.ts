@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'Refresh') {
-  constructor(private readonly configService: ConfigService) {
+  constructor(readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -13,7 +13,9 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'Refresh') {
     });
   }
 
-  async validate(payload: any) {
-    return { userId: payload.sub, username: payload.username };
+  async validate(payload: Express.User & { iat: number; exp: number }) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { iat, exp, ...rest } = payload;
+    return rest;
   }
 }

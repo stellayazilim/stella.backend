@@ -1,22 +1,30 @@
-import {
-  Controller,
-  Get,
-  Injectable,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-
-@Injectable()
-class TestGuard extends AuthGuard('Local') {}
+import { AuthService } from './auth.service';
+import { LocalGuard } from './guards/local.guard';
+import { User } from 'src/common/decorators/user.decorator';
+import { RefreshGuard } from './guards/refresh.guard';
 
 @Controller({ path: 'auth' })
 export class AuthController {
-  @Get('signin')
-  @UseGuards(TestGuard)
+  constructor(private readonly authService: AuthService) {}
+  @Post('signin')
+  @UseGuards(LocalGuard)
   async signIn(@Req() req: Request) {
-    return req.user;
+    const { _id, email, role } = req.user;
+
+    console.log(req.user);
+    return this.authService.SignTokens({
+      _id,
+      email,
+      role,
+    });
+  }
+
+  @Get('refresh')
+  @UseGuards(RefreshGuard)
+  async refresh(@User() user: Express.User) {
+    console.log(user);
   }
 }

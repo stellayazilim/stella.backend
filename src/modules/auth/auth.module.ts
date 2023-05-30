@@ -7,6 +7,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserSchemaFactory } from 'src/schemas/stella/factory/user.schema.factory';
 import { LocalStrategy } from './strategies/local.strategy';
 import { PassportModule } from '@nestjs/passport';
+import { JwtAccessStrategy } from './strategies/access.stragy';
+import { JwtRefreshStrategy } from './strategies/refresh.stragy';
 @Module({
   imports: [
     PassportModule,
@@ -16,6 +18,11 @@ import { PassportModule } from '@nestjs/passport';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtAccessStrategy,
+    JwtRefreshStrategy,
+  ],
 })
 export class AuthModule {}

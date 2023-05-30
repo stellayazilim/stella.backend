@@ -15,7 +15,7 @@ import { UserService } from './user.service';
 import { ParseObjectIdPipe } from 'src/common/pipes/parse.objectid.pipe';
 import { UserUpdateDto } from './dto/user.create.dto';
 
-@Controller({ host: 'administrator.localhost', path: 'users' })
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()

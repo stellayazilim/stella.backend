@@ -1,12 +1,7 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
-import { UserDocument } from 'src/schemas/user.schema';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'Local') {
@@ -17,11 +12,8 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'Local') {
     });
   }
 
-  async validate(
-    email: string,
-    password: string,
-  ): Promise<Partial<UserDocument>> {
+  async validate(email: string, password: string) {
     if (!email && !password) throw new BadRequestException();
-    return this.authService.GetUserByCredentials(email, password);
+    return this.authService.LoginByCredentials(email, password);
   }
 }
