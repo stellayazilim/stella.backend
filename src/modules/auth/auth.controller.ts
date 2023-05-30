@@ -14,7 +14,6 @@ export class AuthController {
   async signIn(@Req() req: Request) {
     const { _id, email, role } = req.user;
 
-    console.log(req.user);
     return this.authService.SignTokens({
       _id,
       email,
@@ -24,7 +23,7 @@ export class AuthController {
 
   @Get('refresh')
   @UseGuards(RefreshGuard)
-  async refresh(@User() user: Express.User) {
-    console.log(user);
+  async refresh(@Req() req: Request) {
+    return this.authService.RefreshTokens(req.user);
   }
 }

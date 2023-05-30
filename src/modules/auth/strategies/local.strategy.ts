@@ -13,7 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'Local') {
   }
 
   async validate(email: string, password: string) {
-    if (!email && !password) throw new BadRequestException();
+    if (!email || !password) throw new BadRequestException();
     return this.authService.LoginByCredentials(email, password);
   }
 }

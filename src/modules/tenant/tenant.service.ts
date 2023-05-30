@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Tenant, TenantModel } from 'src/schemas/stella/tenant.schema';
+import { Tenant, TenantModel } from 'src/schemas/tenant.schema';
 import { TenantCreateDto } from 'src/modules/tenant/dto/tenant.create.dto';
 import { TenantUpdateDto } from 'src/modules/tenant/dto/tenant.update.dto';
 import { Types } from 'mongoose';

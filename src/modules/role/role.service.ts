@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Role, RoleModel } from 'src/schemas/stella/role.schema';
+import { Role, RoleModel } from 'src/schemas/role.schema';
 import { RoleAddDto } from './dto/role.add.dto';
 import { RoleUpdateDto } from './dto/role.update.dto';
 

@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { RoleService } from '../role.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Role } from 'src/schemas/stella/role.schema';
+import { Role } from 'src/schemas/role.schema';
 import { RoleAddDto } from '../dto/role.add.dto';
 import { Types } from 'mongoose';
 import { ConflictException, NotFoundException } from '@nestjs/common';

@@ -7,7 +7,7 @@ import { UserAddDto } from '../dto/user.add.dto';
 import { Types } from 'mongoose';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 
-import { Role } from 'src/schemas/stella/role.schema';
+import { Role } from 'src/schemas/role.schema';
 import { UserUpdateDto } from '../dto/user.create.dto';
 describe('User Service', () => {
   const mockUserModel = MockUserModel;

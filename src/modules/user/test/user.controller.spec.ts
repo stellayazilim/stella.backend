@@ -4,7 +4,7 @@ import { UserService } from '../user.service';
 import { Types } from 'mongoose';
 import { MockUserService } from './__mocks__/user.service';
 import { ConflictException, NotFoundException } from '@nestjs/common';
-import { Role } from 'src/schemas/stella/role.schema';
+import { Role } from 'src/schemas/role.schema';
 import { UserUpdateDto } from '../dto/user.create.dto';
 
 describe('User Controller', () => {

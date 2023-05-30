@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { RoleService } from '../role.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Role, RoleModel } from 'src/schemas/stella/role.schema';
+import { Role, RoleModel } from 'src/schemas/role.schema';
 import { RoleModule } from '../role.module';
 import { RoleController } from '../role.controller';
 describe('Role module', () => {

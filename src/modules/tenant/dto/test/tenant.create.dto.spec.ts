@@ -71,4 +71,26 @@ describe('tenant.create.dto', () => {
     const result = await validate(plainToInstance(TenantCreateDto, mockDto));
     expect(result.length).toBe(2);
   });
+
+  it('should validate company if isCompany true', async () => {
+    const mockDto: TenantCreateDto = {
+      name: 'stella',
+      isCompany: true,
+      phone: '+905438559800',
+      email: 'administrator@stellasoft.tech',
+      hostname: 'stellasoft.tech',
+      company: 'stella',
+      address: {
+        country: 'Turkiye',
+        city: 'Tekirdag',
+        province: 'Corlu',
+        addressLines: ['Ali pasa mah'],
+        zipcode: '49580',
+      },
+    };
+
+    const result = await validate(plainToInstance(TenantCreateDto, mockDto));
+
+    expect(result).toHaveLength(0);
+  });
 });

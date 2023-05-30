@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
-import { Tenant, TenantModel } from 'src/schemas/stella/tenant.schema';
+import { Tenant, TenantModel } from 'src/schemas/tenant.schema';
 import { TenantModule } from '../tenant.module';
 import { TenantService } from '../tenant.service';
 import { TenantController } from '../tenant.controller';

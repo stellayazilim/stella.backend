@@ -26,4 +26,16 @@ describe('tenant.update.dto', () => {
     const result = await plainToInstance(TenantUpdateDto, mockDto);
     expect(result.address).toBeInstanceOf(TenantAddressDto);
   });
+
+  it('should validate company if isCompany true', async () => {
+    const mockDto: TenantUpdateDto = {
+      isCompany: true,
+
+      company: 'stella',
+    };
+
+    const result = await validate(plainToInstance(TenantUpdateDto, mockDto));
+
+    expect(result).toHaveLength(0);
+  });
 });

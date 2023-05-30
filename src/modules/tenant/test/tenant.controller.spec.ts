@@ -8,7 +8,7 @@ import {
   tenantWithIdStub,
 } from '../__stubs__/tenant.stub';
 import { TenantUpdateDto } from '../dto/tenant.update.dto';
-import { TenantDocument } from 'src/schemas/stella/tenant.schema';
+import { TenantDocument } from 'src/schemas/tenant.schema';
 import { Types } from 'mongoose';
 
 describe('TenantControler', () => {
