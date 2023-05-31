@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
 ## Installation
 
 ```bash
@@ -36,7 +32,9 @@ $ pnpm run test:cov
 
 ## Powered by
 
-[NestJs](https://nestjs.com/)
+<p >
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="100" alt="Nest Logo" /></a>
+</p>
 
 ## License
 
